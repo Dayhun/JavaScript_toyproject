@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>스타크래프트</title>
+    <style>
+        .background {
+            position: relative;
+            background-image: url('background.png');
+            background-size: 500px 330px;
+            width: 500px;
+            height: 330px;
+        }
+        #drone {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 100px;
+            left: 60px;
+        }
+        #bunker {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: 80px;
+            right: 20px;
+        }
+        #spit {
+            display: none;
+            position: absolute;
+            top: 140px;
+            left: 150px;
+            width: 50px;
+            height: 30px;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <!-- 벙커hp 표시 -->
+    <h1 id='hp'>HP : 3</h1>
+    <div class='background'>
+        <img id='drone' src="drone.png" alt="drone">
+        <img id='spit' src="spit.png" alt="spit">
+        <img id='bunker' src="bunker.png" alt="bunker">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        //hp 표시
+        var hp = 3;
+        //침 발사
+        //fadeIn함수 구글링해서 적용해보기
+        $('#drone').click(function(){
+            $('#spit').fadeIn();
+            //침날라가기(왼쪽간격을 넓혀서 침 오른쪽으로 이동하도록)
+            $('#spit').animate({left: '+=250'});
+            //목표물 도달 후, 침 사라지기
+            //다시 클릭하면 사라졌던 벙커위치에서 침이 다시 발사되는 문제발생
+            //벙커에서 사라졌던 침의 위치를 다시 드론으로 옮겨야함
+            //벙커맞을때 hp깎이게하기
+            $('#spit').fadeOut(function(){
+                //벙커 hp 깎기
+                hp = hp - 1;
+                $('#hp').text('HP : '  + hp);
+                //벙커 hp가 0이면, 벙커 사라지게 하기
+                if (hp == 0) {
+                    $('#bunker').fadeOut();
+                }
+            });
+            //침위치옮기기(원래위치로 돌아가게!)
+            $('#spit').css({left: '150px'});
+            
+        });
+    </script>
+</body>
+</html>
