@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="400" height="400"></canvas>
+    <!-- 캔버스는 스크립트로 -->
+    <!-- 요소를 움직이면 리페인트, 리플로우 현상이 발생하기 때문에, 브라우저에 부담이 간다.
+    이를 해결 방법 : 그래픽 가속기 사용
+    하지만 캔버스를 이용하면 리페인트, 리플로우 현상이 발생하지 않아서 큰 장점이 된다. 
+    비트맵 그래픽 기반 API이기때문에 = 항상 픽셀단위-->
+    <script>
+        const canvas = document.querySelector('canvas');
+        // 캔버스의 그리기 도구(크레파스, 연필)
+        const ctx = canvas.getContext('2d');
+
+        // 상자그리기
+        //색 먼저 정해주기
+        ctx.fillStyle = 'red';
+        //네모를 채우기(x좌표,y좌표,너비,높이)
+        ctx.fillRect(185, 185, 30, 30);
+        //또다른 상자 그리기
+        ctx.fillStyle = '#000';
+        ctx.fillRect(300, 300, 30, 30);
+
+        // 선그리기
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = "30";
+        // 선 긋기 시작 (연필 들기)
+        ctx.beginPath();
+        // 시작 지점 (시작지점에 연필 딱 찍기 x좌표,y좌표)
+        ctx.moveTo(10, 150);
+        // 종료 지점 (시작지점에 연필 딱 찍기 x좌표,y좌표)
+        ctx.lineTo(150, 300);
+        // 그려라
+        ctx.stroke();
+
+        //동그라미그리기(시작 각도, 끝 각도 알려줘야함)
+        // 라디안 오른쪽 > 시계/반대시계방향
+        // 굵기
+        ctx.lineWidth = 30;
+        ctx.beginPath();
+        // 원의 중심좌표 (x, y, 반지름길이, 시작 라디안 각도, 끝 라디안 각도, false기본값(시계방향) 어느방향으로 그려줄것인가)
+        ctx.arc(200, 200, 30, 0, Math.PI * 2, false);
+        ctx.stroke();
+        //도넛모양 > 완전 동그라미 만들기
+        // 근데 fill은 모든 도형에 적용됨 ㅠ 그럼 how?
+        // ctx.fill();
+
+    </script>
+</body>
+
+</html>
